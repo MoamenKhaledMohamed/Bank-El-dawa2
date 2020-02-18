@@ -1,5 +1,5 @@
 <?php
-class Store implements Model {
+class Store extends Model {
 
     public function read()
     {

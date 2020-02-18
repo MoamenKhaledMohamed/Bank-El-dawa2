@@ -1,5 +1,5 @@
 <?php
-class Worke implements Model {
+class Worke extends Model {
 
     public function read()
     {

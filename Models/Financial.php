@@ -1,5 +1,5 @@
 <?php
-class Financial implements Model{
+class Financial extends Model{
 
     public function read()
     {

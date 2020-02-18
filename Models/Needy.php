@@ -1,5 +1,5 @@
 <?php
-class Needy implements Model {
+class Needy extends Model {
 
     public function read()
     {
