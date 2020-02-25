@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2020 at 06:40 PM
+-- Generation Time: Feb 25, 2020 at 11:07 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -105,7 +105,7 @@ CREATE TABLE `employees` (
 CREATE TABLE `needy` (
   `ID_Needy` int(14) NOT NULL,
   `Subvention_Type` varchar(40) DEFAULT NULL,
-  `Qualification` varchar(40) DEFAULT NULL
+  `Image_Profile` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -119,7 +119,9 @@ CREATE TABLE `persons` (
   `Phone` int(12) NOT NULL,
   `Job` varchar(30) NOT NULL,
   `Qualification` varchar(30) NOT NULL,
-  `Age` int(3) NOT NULL
+  `Age` int(3) NOT NULL,
+  `Name` varchar(100) DEFAULT NULL,
+  `Id_Needy` int(14) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -224,7 +226,8 @@ ALTER TABLE `needy`
 -- Indexes for table `persons`
 --
 ALTER TABLE `persons`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `Id_Needy` (`Id_Needy`);
 
 --
 -- Indexes for table `tools`
@@ -287,6 +290,12 @@ ALTER TABLE `employees`
 --
 ALTER TABLE `needy`
   ADD CONSTRAINT `needy_ibfk_1` FOREIGN KEY (`ID_Needy`) REFERENCES `persons` (`ID`);
+
+--
+-- Constraints for table `persons`
+--
+ALTER TABLE `persons`
+  ADD CONSTRAINT `persons_ibfk_1` FOREIGN KEY (`Id_Needy`) REFERENCES `needy` (`ID_Needy`);
 
 --
 -- Constraints for table `tools_given`
