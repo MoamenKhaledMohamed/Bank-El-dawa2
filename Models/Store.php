@@ -1,9 +1,20 @@
 <?php
 class Store extends Model {
+    private $TableName = "";
+    public $IdTool;
+    public $NameTool;
+    public $TypeTool;
+    public $Quantity;
+    public $DateIn;
+
+    public function __construct ($db){
+        parent::__construct($db);
+     }
 
     public function read()
     {
-        // TODO: Implement read() method.
+        $sql = "SELECT * FROM tools LEFT JOIN tools_given ON tools.ID_Tool = tools_given.ID_Tool_Given";
+
     }
 
     public function update()
@@ -15,4 +26,5 @@ class Store extends Model {
     {
         // TODO: Implement delete() method.
     }
+
 }
