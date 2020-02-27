@@ -67,7 +67,30 @@ class Store extends Model {
     }
     public function delete()
     {
-        // TODO: Implement delete() method.
+        try {
+                // Start Transaction
+                $this->Conn->beginTransaction();
+
+                //Delete From Tools_Given Table
+                $stmt = $this->Conn->prepare("DELETE FROM tools_given WHERE ID_Tool_Given = ?");
+                $stmt->execute([$this->IdTool]);
+
+                //Delete From Tools Table
+                $stmt = $this->Conn->prepare("DELETE FROM tools WHERE ID_Tool = ?");
+                $stmt->execute([$this->IdTool]);
+
+                //Commit
+                $this->Conn->commit();
+                // print updated
+                echo json_encode(["Message" => "DELETED"]);
+        }
+        catch (PDOException $e){
+
+            // check if one of Transaction Not Exec Will Rollback
+            $this->Conn->rollback();
+            echo $e->getMessage();
+
+        }
     }
 
 }
