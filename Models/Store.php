@@ -22,7 +22,6 @@ class Store extends Model {
 
          // execute the query
          $stmt = $this->Conn->query($sql);
-
          return $stmt;
 
     }
