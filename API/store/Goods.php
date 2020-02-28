@@ -5,8 +5,8 @@
     include_once '../../Config/Database.php';
     include_once '../../Models/Store.php';
 
-    // connect to data base
-    $Conn = new DataBase();
+// connect to data base
+$Conn = new DataBase();
     $db = $Conn->dbconnect();
 
     // create Store
