@@ -17,14 +17,13 @@ $Conn = new DataBase();
     $count = $stmt->rowCount();
         if ($count > 0){
 
-                // array hold data
+                // array holds data
                 $Json  = [];
 
                 // loop to print data
                 while ($row = $stmt->fetch()){
 
                     $data = [] ;
-
                     foreach($row as $key => $val) {
                         $data[$key] = $val;
                          }
