@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2020 at 11:07 AM
+-- Generation Time: Mar 01, 2020 at 04:20 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -71,6 +71,13 @@ CREATE TABLE `departement` (
   `ID_Employee` int(14) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `departement`
+--
+
+INSERT INTO `departement` (`ID_Dep`, `Name`, `ID_Employee`) VALUES
+(32131, 'erydyfdy', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -93,7 +100,7 @@ CREATE TABLE `employees` (
   `ID_Employee` int(14) NOT NULL,
   `Salary` int(15) DEFAULT NULL,
   `ID_Dep` int(4) DEFAULT NULL,
-  `Image_profile` blob
+  `Image_profile` varchar(300) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -105,7 +112,7 @@ CREATE TABLE `employees` (
 CREATE TABLE `needy` (
   `ID_Needy` int(14) NOT NULL,
   `Subvention_Type` varchar(40) DEFAULT NULL,
-  `Image_Profile` blob
+  `Image_Profile` varchar(300) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -263,59 +270,59 @@ ALTER TABLE `voulnteers`
 -- Constraints for table `activites_voulnteers`
 --
 ALTER TABLE `activites_voulnteers`
-  ADD CONSTRAINT `activites_voulnteers_ibfk_1` FOREIGN KEY (`ID_Voul`) REFERENCES `voulnteers` (`ID_Voul`),
-  ADD CONSTRAINT `activites_voulnteers_ibfk_2` FOREIGN KEY (`ID_Act`) REFERENCES `activites` (`ID_Act`);
+  ADD CONSTRAINT `activites_voulnteers_ibfk_1` FOREIGN KEY (`ID_Voul`) REFERENCES `voulnteers` (`ID_Voul`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `activites_voulnteers_ibfk_2` FOREIGN KEY (`ID_Act`) REFERENCES `activites` (`ID_Act`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `departement`
 --
 ALTER TABLE `departement`
-  ADD CONSTRAINT `departement_ibfk_1` FOREIGN KEY (`ID_Employee`) REFERENCES `employees` (`ID_Employee`);
+  ADD CONSTRAINT `departement_ibfk_1` FOREIGN KEY (`ID_Employee`) REFERENCES `employees` (`ID_Employee`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `donners`
 --
 ALTER TABLE `donners`
-  ADD CONSTRAINT `donners_ibfk_1` FOREIGN KEY (`ID_Donner`) REFERENCES `persons` (`ID`);
+  ADD CONSTRAINT `donners_ibfk_1` FOREIGN KEY (`ID_Donner`) REFERENCES `persons` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `employees`
 --
 ALTER TABLE `employees`
-  ADD CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`ID_Employee`) REFERENCES `persons` (`ID`),
-  ADD CONSTRAINT `employees_ibfk_2` FOREIGN KEY (`ID_Dep`) REFERENCES `departement` (`ID_Dep`);
+  ADD CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`ID_Employee`) REFERENCES `persons` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `employees_ibfk_2` FOREIGN KEY (`ID_Dep`) REFERENCES `departement` (`ID_Dep`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `needy`
 --
 ALTER TABLE `needy`
-  ADD CONSTRAINT `needy_ibfk_1` FOREIGN KEY (`ID_Needy`) REFERENCES `persons` (`ID`);
+  ADD CONSTRAINT `needy_ibfk_1` FOREIGN KEY (`ID_Needy`) REFERENCES `persons` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `persons`
 --
 ALTER TABLE `persons`
-  ADD CONSTRAINT `persons_ibfk_1` FOREIGN KEY (`Id_Needy`) REFERENCES `needy` (`ID_Needy`);
+  ADD CONSTRAINT `persons_ibfk_1` FOREIGN KEY (`Id_Needy`) REFERENCES `needy` (`ID_Needy`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tools_given`
 --
 ALTER TABLE `tools_given`
-  ADD CONSTRAINT `tools_given_ibfk_1` FOREIGN KEY (`ID_Tool_Given`) REFERENCES `tools` (`ID_Tool`),
-  ADD CONSTRAINT `tools_given_ibfk_2` FOREIGN KEY (`ID_Donner`) REFERENCES `donners` (`ID_Donner`);
+  ADD CONSTRAINT `tools_given_ibfk_1` FOREIGN KEY (`ID_Tool_Given`) REFERENCES `tools` (`ID_Tool`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tools_given_ibfk_2` FOREIGN KEY (`ID_Donner`) REFERENCES `donners` (`ID_Donner`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tools_taken`
 --
 ALTER TABLE `tools_taken`
-  ADD CONSTRAINT `tools_taken_ibfk_1` FOREIGN KEY (`ID_Tool_Taken`) REFERENCES `tools` (`ID_Tool`),
-  ADD CONSTRAINT `tools_taken_ibfk_2` FOREIGN KEY (`ID_Needy`) REFERENCES `needy` (`ID_Needy`);
+  ADD CONSTRAINT `tools_taken_ibfk_1` FOREIGN KEY (`ID_Tool_Taken`) REFERENCES `tools` (`ID_Tool`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tools_taken_ibfk_2` FOREIGN KEY (`ID_Needy`) REFERENCES `needy` (`ID_Needy`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `voulnteers`
 --
 ALTER TABLE `voulnteers`
-  ADD CONSTRAINT `voulnteers_ibfk_1` FOREIGN KEY (`ID_Voul`) REFERENCES `persons` (`ID`);
+  ADD CONSTRAINT `voulnteers_ibfk_1` FOREIGN KEY (`ID_Voul`) REFERENCES `persons` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

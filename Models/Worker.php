@@ -121,14 +121,14 @@ WHERE persons.ID =:ID';
         $query='DELETE p.*, em.*
 FROM persons p
 LEFT JOIN employees em ON p.ID = em.ID_Employee
-WHERE p.ID =:D';
+WHERE p.ID =:ID';
 
 //   perpare stmt
         $stmt=$this->conn->prepare($query);
 
         $this->ID=htmlspecialchars(strip_tags($this->ID));
 
-        $stmt->bindparam('ID',$this->ID);
+        $stmt->bindparam(':ID',$this->ID);
 
         if($stmt->execute()){
             return true;
